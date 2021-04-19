@@ -1,21 +1,19 @@
-- name: Install NGINX
-  hosts: all
-  tasks:        
-    - name: Install nginx
-      yum:
-        name: nginx
-        state: present
-      
-    - name: Insert Index Page
-      template:
-        src: index.html
-        dest: /usr/share/nginx/html/index.html
-        
-    - name: Start NGiNX
-      service:
-        name: nginx
-      state: started   
-      
-    - name: Nginx Message
-      debug:
-        msg: "Nginx installé !"
+---
+- name: Install nginx
+  become: true
+  
+  tasks:
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: Insert Index Page
+    template:
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
